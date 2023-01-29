@@ -13,9 +13,10 @@ class MedMe extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
           primarySwatch: Colors.red,
+          // hoverColor: const Color.fromARGB(0, 255, 255, 255),
           navigationBarTheme: const NavigationBarThemeData(
-            height: 70.0,
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+            height: 60,
           )),
       home: const Profilescreen(),
     );
@@ -31,41 +32,88 @@ class Profilescreen extends StatefulWidget {
 
 class _ProfilescreenState extends State<Profilescreen> {
   int currentPageIndex = 1;
+  void _onTapped(int index) {
+    setState(() {
+      currentPageIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        body: IndexedStack(
+          index: currentPageIndex,
+          children: const [
+            FarmacyPage(),
+            ProfilePage(),
+            HospitalPage(),
+          ],
+        ),
         bottomNavigationBar: NavigationBar(
-      onDestinationSelected: (int index) {
-        setState(() {
-          currentPageIndex = index;
-        });
-      },
-      selectedIndex: currentPageIndex,
-      destinations: <Widget>[
-        NavigationDestination(
-          icon: Image.asset(
-            "../assets/images/farmacy.png",
-            scale: 3.0,
-          ),
-          label: '',
-        ),
-        NavigationDestination(
-          icon: Image.asset(
-            "../assets/images/profile.png",
-            scale: 3.0,
-          ),
-          label: '',
-        ),
-        NavigationDestination(
-          icon: Image.asset(
-            "../assets/images/hospital.png",
-            scale: 3.0,
-          ),
-          label: '',
-        ),
-      ],
-      height: 70.0,
-    ));
+          onDestinationSelected: _onTapped,
+          selectedIndex: currentPageIndex,
+          destinations: <Widget>[
+            NavigationDestination(
+              icon: Image.asset(
+                "../assets/images/farmacy.png",
+                scale: 3.0,
+              ),
+              label: '',
+            ),
+            NavigationDestination(
+              icon: Image.asset(
+                "../assets/images/profile.png",
+                scale: 3.0,
+              ),
+              label: '',
+            ),
+            NavigationDestination(
+              icon: Image.asset(
+                "../assets/images/hospital.png",
+                scale: 3.0,
+              ),
+              label: '',
+            ),
+          ],
+        ));
+  }
+}
+
+class FarmacyPage extends StatelessWidget {
+  const FarmacyPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: Text('Farmacy Page'),
+      ),
+    );
+  }
+}
+
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: Text('Profile Page'),
+      ),
+    );
+  }
+}
+
+class HospitalPage extends StatelessWidget {
+  const HospitalPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: Text('Hospital Page'),
+      ),
+    );
   }
 }
