@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_equal_for_default_values
-
 import 'package:flutter/material.dart';
 
 void main() {
