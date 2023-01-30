@@ -1,7 +1,3 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe
-
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'profilepage.dart';
 import 'hospitalpage.dart';
@@ -39,7 +35,11 @@ class Mainscreen extends StatefulWidget {
 
 class _Mainscreen extends State<Mainscreen> {
   int currentPageIndex = 1;
-  final _pages = [FarmacyPage(), ProfilePage(), HospitalPage()];
+  final _pages = [
+    const FarmacyPage(),
+    const ProfilePage(),
+    const HospitalPage()
+  ];
 
   void _onTapped(int index) {
     setState(() {
