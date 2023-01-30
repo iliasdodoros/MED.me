@@ -90,7 +90,7 @@ class _FarmacyPage extends State<FarmacyPage> {
       _markers.add(Marker(
           markerId: MarkerId(i.toString()),
           position: LatLng(lat, lng),
-          infoWindow: InfoWindow(title: name, onTap: () => {}),
+          infoWindow: InfoWindow(title: name, onTap: () => {openMap(name)}),
           icon: BitmapDescriptor.defaultMarkerWithHue(
               BitmapDescriptor.hueViolet)));
     }
