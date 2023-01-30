@@ -1,4 +1,11 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'profilepage.dart';
+import 'hospitalpage.dart';
+import 'farmacypage.dart';
 
 void main() {
   runApp(const MedMe());
@@ -18,20 +25,22 @@ class MedMe extends StatelessWidget {
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
             height: 60,
           )),
-      home: const Profilescreen(),
+      home: const Mainscreen(),
     );
   }
 }
 
-class Profilescreen extends StatefulWidget {
-  const Profilescreen({Key? key}) : super(key: key);
+class Mainscreen extends StatefulWidget {
+  const Mainscreen({Key? key}) : super(key: key);
 
   @override
-  _ProfilescreenState createState() => _ProfilescreenState();
+  _Mainscreen createState() => _Mainscreen();
 }
 
-class _ProfilescreenState extends State<Profilescreen> {
+class _Mainscreen extends State<Mainscreen> {
   int currentPageIndex = 1;
+  final _pages = [FarmacyPage(), ProfilePage(), HospitalPage()];
+
   void _onTapped(int index) {
     setState(() {
       currentPageIndex = index;
@@ -41,79 +50,36 @@ class _ProfilescreenState extends State<Profilescreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: IndexedStack(
-          index: currentPageIndex,
-          children: const [
-            FarmacyPage(),
-            ProfilePage(),
-            HospitalPage(),
-          ],
-        ),
+        body: _pages[currentPageIndex],
         bottomNavigationBar: NavigationBar(
           onDestinationSelected: _onTapped,
           selectedIndex: currentPageIndex,
-          destinations: <Widget>[
+          destinations: const <Widget>[
             NavigationDestination(
-              icon: Image.asset(
-                "../assets/images/farmacy.png",
-                scale: 3.0,
-              ),
+              icon: SizedBox(
+                  width: 35,
+                  height: 35,
+                  child:
+                      Image(image: AssetImage('./assets/images/farmacy.png'))),
               label: '',
             ),
             NavigationDestination(
-              icon: Image.asset(
-                "../assets/images/profile.png",
-                scale: 3.0,
-              ),
+              icon: SizedBox(
+                  width: 35,
+                  height: 35,
+                  child:
+                      Image(image: AssetImage('./assets/images/profile.png'))),
               label: '',
             ),
             NavigationDestination(
-              icon: Image.asset(
-                "../assets/images/hospital.png",
-                scale: 3.0,
-              ),
+              icon: SizedBox(
+                  width: 35,
+                  height: 35,
+                  child:
+                      Image(image: AssetImage('./assets/images/hospital.png'))),
               label: '',
             ),
           ],
         ));
-  }
-}
-
-class FarmacyPage extends StatelessWidget {
-  const FarmacyPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Farmacy Page'),
-      ),
-    );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Profile Page'),
-      ),
-    );
-  }
-}
-
-class HospitalPage extends StatelessWidget {
-  const HospitalPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Hospital Page'),
-      ),
-    );
   }
 }
