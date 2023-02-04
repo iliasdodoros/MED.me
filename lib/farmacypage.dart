@@ -80,7 +80,7 @@ class _FarmacyPage extends State<FarmacyPage> {
 
   _addPharmacies() async {
     var url = Uri.parse(
-        'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${_currentLocation?.latitude},${_currentLocation?.longitude}&radius=5000&type=pharmacy&key=AIzaSyBf1X9B4UwLQTNNm_nxM2IVeIqpIMlKOGE');
+        'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${_currentLocation?.latitude},${_currentLocation?.longitude}&radius=5000&type=pharmacy&key=<API_KEY>');
     var response = await http.post(url);
     var data = json.decode(response.body);
     for (var i = 0; i < data['results'].length; i++) {
