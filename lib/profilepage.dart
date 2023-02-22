@@ -14,13 +14,16 @@ class ProfilePage extends StatelessWidget {
             height: 90,
             child: ElevatedButton(
               onPressed: () {
-                // handle button press
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Info()),
+                );
               },
+              style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all(Size(20, 4)),
+                textStyle: MaterialStateProperty.all(TextStyle(fontSize: 28)),
+              ),
               child: Text('INFO'),
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(Size(20, 4)),
-                textStyle: MaterialStateProperty.all(TextStyle(fontSize: 28)),
-              ),
             ),
           ),
           SizedBox(height: 16.0),
@@ -29,13 +32,16 @@ class ProfilePage extends StatelessWidget {
             height: 90,
             child: ElevatedButton(
               onPressed: () {
-                // handle button press
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Prescriptions()),
+                );
               },
+              style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all(Size(20, 4)),
+                textStyle: MaterialStateProperty.all(TextStyle(fontSize: 28)),
+              ),
               child: Text('PRESCRIPTIONS'),
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(Size(20, 4)),
-                textStyle: MaterialStateProperty.all(TextStyle(fontSize: 28)),
-              ),
             ),
           ),
           SizedBox(height: 16.0),
@@ -44,13 +50,16 @@ class ProfilePage extends StatelessWidget {
             height: 90,
             child: ElevatedButton(
               onPressed: () {
-                // handle button press
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MedicalExams()),
+                );
               },
+              style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all(Size(20, 4)),
+                textStyle: MaterialStateProperty.all(TextStyle(fontSize: 28)),
+              ),
               child: Text('MEDICAL EXAMS'),
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(Size(20, 4)),
-                textStyle: MaterialStateProperty.all(TextStyle(fontSize: 28)),
-              ),
             ),
           ),
           SizedBox(height: 16.0),
@@ -59,16 +68,83 @@ class ProfilePage extends StatelessWidget {
             height: 90,
             child: ElevatedButton(
               onPressed: () {
-                // handle button press
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Diary()),
+                );
               },
-              child: Text('DIARY'),
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all(Size(20, 8)),
                 textStyle: MaterialStateProperty.all(TextStyle(fontSize: 28)),
               ),
+              child: Text('DIARY'),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class Info extends StatelessWidget {
+  const Info({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Info'),
+      ),
+      body: Center(
+        child: Text('This is the info page'),
+      ),
+    );
+  }
+}
+
+class Prescriptions extends StatelessWidget {
+  const Prescriptions({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Prescriptions'),
+      ),
+      body: Center(
+        child: Text('This is the Prescriptions page'),
+      ),
+    );
+  }
+}
+
+class MedicalExams extends StatelessWidget {
+  const MedicalExams({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Medical Exams'),
+      ),
+      body: Center(
+        child: Text('This is the Medical Exams page'),
+      ),
+    );
+  }
+}
+
+class Diary extends StatelessWidget {
+  const Diary({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Diary'),
+      ),
+      body: Center(
+        child: Text('This is the Diary page'),
       ),
     );
   }
