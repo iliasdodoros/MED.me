@@ -18,7 +18,7 @@ class _FarmacyPage extends State<FarmacyPage> {
   final Location _locationService = Location();
   late PermissionStatus _permission;
   bool _loading = true;
-  Set<Marker> _markers = Set();
+  final Set<Marker> _markers = {};
 
   @override
   void initState() {

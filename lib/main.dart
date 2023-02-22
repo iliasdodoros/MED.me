@@ -30,7 +30,7 @@ class Mainscreen extends StatefulWidget {
   const Mainscreen({Key? key}) : super(key: key);
 
   @override
-  _Mainscreen createState() => _Mainscreen();
+  State<Mainscreen> createState() => _Mainscreen();
 }
 
 class _Mainscreen extends State<Mainscreen> {

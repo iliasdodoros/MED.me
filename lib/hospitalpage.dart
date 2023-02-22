@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'profilepage.dart';
-import 'farmacypage.dart';
 
 class HospitalPage extends StatefulWidget {
   const HospitalPage({super.key});
