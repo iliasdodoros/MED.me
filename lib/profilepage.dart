@@ -139,14 +139,13 @@ class Diary extends StatefulWidget {
   const Diary({Key? key}) : super(key: key);
 
   @override
-  _Diary createState() => _Diary();
+  State<Diary> createState() => _Diary();
 }
 
 class _Diary extends State<Diary> {
-  //CalendarController _calendarController = CalendarController();
-  DateTime? _selectedDay;
-  DateTime _focusedDay = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.month;
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
 
   @override
   Widget build(BuildContext context) {
@@ -166,10 +165,11 @@ class _Diary extends State<Diary> {
           if (!isSameDay(_selectedDay, selectedDay)) {
             setState(() {
               _selectedDay = selectedDay;
-              _focusedDay = focusedDay; // update `_focusedDay` here as well
+              _focusedDay = focusedDay; // update _focusedDay here as well
             });
           }
         },
+        startingDayOfWeek: StartingDayOfWeek.monday,
         calendarFormat: _calendarFormat,
         onFormatChanged: (format) {
           if (_calendarFormat != format) {
@@ -181,6 +181,29 @@ class _Diary extends State<Diary> {
         onPageChanged: (focusedDay) {
           _focusedDay = focusedDay;
         },
+        //To style the Calendar
+        calendarStyle: CalendarStyle(
+          isTodayHighlighted: true,
+          selectedDecoration: BoxDecoration(
+            color: Colors.red,
+            shape: BoxShape.circle,
+          ),
+          selectedTextStyle: TextStyle(color: Colors.white),
+          todayDecoration: BoxDecoration(
+            color: Color.fromARGB(255, 247, 158, 144),
+            shape: BoxShape.circle,
+          ),
+          defaultDecoration: BoxDecoration(
+            shape: BoxShape.circle,
+          ),
+          weekendDecoration: BoxDecoration(
+            shape: BoxShape.circle,
+          ),
+        ),
+        headerStyle: HeaderStyle(
+          formatButtonVisible: false,
+          titleCentered: true,
+        ),
       ),
     );
   }
