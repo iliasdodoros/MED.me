@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:medme/event.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -144,15 +146,25 @@ class Diary extends StatefulWidget {
 }
 
 class _Diary extends State<Diary> {
-  Map<DateTime, List<Event>> selectedEvents = {};
+  late Map<DateTime, List<Event>> selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
 
   TextEditingController _eventController = TextEditingController();
 
+  // load and save events data using SharedPreferences
+  final String _eventsKey = 'events';
+  late SharedPreferences _prefs;
+
   List<Event> _getEventsfromDay(DateTime date) {
     return selectedEvents[date] ?? [];
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadEvents();
   }
 
   @override
@@ -163,10 +175,13 @@ class _Diary extends State<Diary> {
 
   @override
   Widget build(BuildContext context) {
+    if (selectedEvents == null) {
+      return CircularProgressIndicator(); // show a loading indicator while data is being loaded
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text('Diary'),
-        // centerTitle: true,
+        centerTitle: true,
       ),
       body: Column(
         children: [
@@ -254,13 +269,14 @@ class _Diary extends State<Diary> {
                   if (_eventController.text.isEmpty) {
                   } else {
                     if (selectedEvents[_selectedDay] != null) {
-                      selectedEvents[_selectedDay]?.add(
-                        Event(title: _eventController.text),
-                      );
+                      _addEvent(_eventController.text);
+                      //Event(title: _eventController.text),
+                      //);
                     } else {
-                      selectedEvents[_selectedDay] = [
-                        Event(title: _eventController.text)
-                      ];
+                      _addEvent(_eventController.text);
+                      //selectedEvents[_selectedDay] = [
+                      //  Event(title: _eventController.text)
+                      //];
                     }
                   }
                   Navigator.pop(context);
@@ -276,5 +292,46 @@ class _Diary extends State<Diary> {
         icon: Icon(Icons.add),
       ),
     );
+  }
+
+  // method to load events data from SharedPreferences
+  void _loadEvents() async {
+    _prefs = await SharedPreferences.getInstance();
+    final eventsString = _prefs.getString(_eventsKey);
+    if (eventsString != null) {
+      final eventsMap = json.decode(eventsString) as Map<String, dynamic>;
+      selectedEvents = eventsMap.map(
+        (key, value) {
+          final date = DateTime.parse(key);
+          final eventsList =
+              (value as List).map((e) => Event.fromJson(e)).toList();
+          return MapEntry(date, eventsList);
+        },
+      );
+    } else {
+      selectedEvents = {};
+    }
+    setState(() {}); // update the state to rebuild the UI with the loaded data
+  }
+
+  // method to save events data to SharedPreferences
+  void _saveEvents() async {
+    final prefs = await SharedPreferences.getInstance();
+    final eventsMap = selectedEvents.map(
+      (key, value) =>
+          MapEntry(key.toString(), value.map((e) => e.toJson()).toList()),
+    );
+    final eventsString = json.encode(eventsMap);
+    await prefs.setString(_eventsKey, eventsString);
+  }
+
+  void _addEvent(String title) {
+    if (title.isNotEmpty) {
+      final event = Event(title: title);
+      final events = selectedEvents[_selectedDay] ?? [];
+      selectedEvents[_selectedDay] = [...events, event];
+      _saveEvents(); // Call _saveEvents() every time events data is updated
+      setState(() {});
+    }
   }
 }
