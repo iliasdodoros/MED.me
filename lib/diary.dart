@@ -123,6 +123,9 @@ class _Diary extends State<Diary> {
             title: Text("Add Event"),
             content: TextFormField(
               controller: _eventController,
+              decoration: InputDecoration(
+                hintText: 'Enter title',
+              ),
             ),
             actions: [
               TextButton(

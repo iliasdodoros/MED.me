@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medme/diary.dart';
+import 'package:medme/medexams.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -118,21 +119,3 @@ class Prescriptions extends StatelessWidget {
     );
   }
 }
-
-class MedicalExams extends StatelessWidget {
-  const MedicalExams({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('My Exams'),
-      ),
-      body: Center(
-        child: Text('This is the Medical Exams page'),
-      ),
-    );
-  }
-}
-
-// Diary Page
