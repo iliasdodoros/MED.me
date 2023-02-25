@@ -56,7 +56,7 @@ class _MedicalExams extends State<MedicalExams> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ExamPage(exam),
+        builder: (context) => ExamPage(exam, deleteExam),
       ),
     );
   }
@@ -121,13 +121,6 @@ class _MedicalExams extends State<MedicalExams> {
                 ),
               ],
             ),
-
-            //TextFormField(
-            //controller: _titleController,
-            //decoration: InputDecoration(
-            //hintText: 'Enter Exam title',
-            //),
-            //),
             actions: [
               TextButton(
                 child: Text("Cancel"),
@@ -144,9 +137,6 @@ class _MedicalExams extends State<MedicalExams> {
                     } else {
                       _addExam(_titleController.text,
                           _selectedDate ?? DateTime.now(), 'vfgd');
-                      //selectedEvents[_selectedDay] = [
-                      //  Event(title: _eventController.text)
-                      //];
                     }
                   }
                   Navigator.pop(context);
@@ -194,8 +184,9 @@ class _MedicalExams extends State<MedicalExams> {
 // Exam page widget
 class ExamPage extends StatelessWidget {
   final Exam exam;
+  final Function onDelete;
 
-  ExamPage(this.exam);
+  ExamPage(this.exam, this.onDelete);
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +199,9 @@ class ExamPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          _deleteExam(context);
+          onDelete(exam);
+          Navigator.pop(context);
+          //_deleteExamPage(context);
         },
         label: Text("Delete"),
         icon: Icon(Icons.delete),
@@ -216,10 +209,10 @@ class ExamPage extends StatelessWidget {
     );
   }
 
-  void _deleteExam(BuildContext context) {
-    final _MedicalExams medicalExams =
-        context.findAncestorWidgetOfExactType<_MedicalExams>()!;
-    medicalExams.deleteExam(exam);
-    Navigator.pop(context);
-  }
+  //void _deleteExamPage(BuildContext context) {
+  //final _MedicalExams medicalExams =
+  //context.findAncestorWidgetOfExactType<_MedicalExams>()!;
+  //medicalExams.deleteExam(exam);
+  //Navigator.pop(context);
+  //}
 }
