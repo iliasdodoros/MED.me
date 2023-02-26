@@ -50,8 +50,15 @@ class _MyPrescriptions extends State<MyPrescriptions> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Prescriptions'),
+        elevation: 0,
+        iconTheme: IconThemeData(color: Theme.of(context).primaryColorLight),
         centerTitle: true,
+        backgroundColor: Theme.of(context).canvasColor,
+        title: Text(
+          "Prescriptions",
+          style: TextStyle(
+              fontSize: 28, color: Theme.of(context).primaryColorLight),
+        ),
       ),
       body: ListView.builder(
         itemCount: _prescriptions.length,
