@@ -91,8 +91,8 @@ class _FarmacyPage extends State<FarmacyPage> {
           markerId: MarkerId(i.toString()),
           position: LatLng(lat, lng),
           infoWindow: InfoWindow(title: name, onTap: () => {openMap(name)}),
-          icon: BitmapDescriptor.defaultMarkerWithHue(
-              BitmapDescriptor.hueViolet)));
+          icon:
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed)));
     }
     _loading = false;
   }

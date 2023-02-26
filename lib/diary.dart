@@ -46,8 +46,15 @@ class _Diary extends State<Diary> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text('Diary'),
+        elevation: 0,
+        iconTheme: IconThemeData(color: Theme.of(context).primaryColorLight),
         centerTitle: true,
+        backgroundColor: Theme.of(context).canvasColor,
+        title: Text(
+          "Diary",
+          style: TextStyle(
+              fontSize: 28, color: Theme.of(context).primaryColorLight),
+        ),
       ),
       body: Column(
         children: [
@@ -87,12 +94,12 @@ class _Diary extends State<Diary> {
             calendarStyle: CalendarStyle(
               isTodayHighlighted: true,
               selectedDecoration: BoxDecoration(
-                color: Colors.red,
+                color: Theme.of(context).primaryColorLight,
                 shape: BoxShape.circle,
               ),
               selectedTextStyle: TextStyle(color: Colors.white),
               todayDecoration: BoxDecoration(
-                color: Color.fromARGB(255, 247, 158, 144),
+                color: Theme.of(context).dividerColor,
                 shape: BoxShape.circle,
               ),
               defaultDecoration: BoxDecoration(
@@ -117,6 +124,7 @@ class _Diary extends State<Diary> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Theme.of(context).primaryColorLight,
         onPressed: () => showDialog(
           context: context,
           builder: (context) => AlertDialog(
