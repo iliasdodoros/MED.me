@@ -96,6 +96,7 @@ class _MyPrescriptions extends State<MyPrescriptions> {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Theme.of(context).primaryColorLight,
         onPressed: () => showDialog(
           context: context,
           builder: (context) => AlertDialog(
