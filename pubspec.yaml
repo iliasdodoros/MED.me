@@ -38,6 +38,8 @@ dependencies:
   table_calendar: ^3.0.1
   shared_preferences: ^2.0.9 
   intl: ^0.18.0
+  file_picker: ^4.0.0
+  flutter_pdfview: ^1.2.1
 
 
 

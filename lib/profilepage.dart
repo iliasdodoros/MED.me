@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medme/diary.dart';
 import 'package:medme/medexams.dart';
+import 'package:medme/prescriptions.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -36,7 +37,7 @@ class ProfilePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Prescriptions()),
+                  MaterialPageRoute(builder: (context) => MyPrescriptions()),
                 );
               },
               style: ButtonStyle(
@@ -99,22 +100,6 @@ class Info extends StatelessWidget {
       ),
       body: Center(
         child: Text('This is the info page'),
-      ),
-    );
-  }
-}
-
-class Prescriptions extends StatelessWidget {
-  const Prescriptions({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Prescriptions'),
-      ),
-      body: Center(
-        child: Text('This is the Prescriptions page'),
       ),
     );
   }

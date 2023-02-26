@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 //import 'package:intl/intl.dart';
 
 //String extractDate(DateTime date) {
@@ -43,6 +45,7 @@ class _MedicalExams extends State<MedicalExams> {
   final TextEditingController _titleController = TextEditingController();
   DateTime? _selectedDate;
   String _selectedDateText = 'Select date';
+  String _filePath = '';
 
   late SharedPreferences _prefs;
 
@@ -70,7 +73,7 @@ class _MedicalExams extends State<MedicalExams> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MY Exams'),
+        title: Text('My Exams'),
         centerTitle: true,
       ),
       body: ListView.builder(
@@ -89,11 +92,12 @@ class _MedicalExams extends State<MedicalExams> {
           builder: (context) => AlertDialog(
             title: Text("Add New Exam"),
             content: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
                   controller: _titleController,
                   decoration: InputDecoration(
-                    hintText: 'Enter title',
+                    hintText: 'Enter Exam type',
                   ),
                 ),
                 SizedBox(height: 16.0),
@@ -116,9 +120,13 @@ class _MedicalExams extends State<MedicalExams> {
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _openFileExplorer();
+                  },
                   child: Text('Add PDF file'),
                 ),
+                SizedBox(height: 20),
+                Text(_filePath),
               ],
             ),
             actions: [
@@ -133,10 +141,10 @@ class _MedicalExams extends State<MedicalExams> {
                   } else {
                     if (_exams != null) {
                       _addExam(_titleController.text,
-                          _selectedDate ?? DateTime.now(), 'ghg');
+                          _selectedDate ?? DateTime.now(), _filePath);
                     } else {
                       _addExam(_titleController.text,
-                          _selectedDate ?? DateTime.now(), 'vfgd');
+                          _selectedDate ?? DateTime.now(), _filePath);
                     }
                   }
                   Navigator.pop(context);
@@ -174,38 +182,98 @@ class _MedicalExams extends State<MedicalExams> {
   }
 
   void deleteExam(Exam exam) {
+    //showDialog(
+    // context: context,
+    //builder: (context) => AlertDialog(
+    //title: Text("Delete Exam"),
+    //content: Text("Are you sure you want to delete this exam?"),
+    // actions: [
+    // TextButton(
+    //  child: Text("Cancel"),
+    //  onPressed: () => Navigator.pop(context),
+    // ),
+    // TextButton(
+    //  child: Text("Delete"),
+    //  onPressed: () {
+    //    _exams.remove(exam);
+    //    _prefs.setStringList(
+    //      'exams',
+    //     _exams.map((exam) => jsonEncode(exam.toJson())).toList(),
+    //  );
+    // Navigator.pop(context);
+    // setState(() {});
+    //   },
+    //  ),
+    // ],
+    // ),
+    // );
+
     _exams.remove(exam);
     _prefs.setStringList(
         'exams', _exams.map((exam) => jsonEncode(exam.toJson())).toList());
     setState(() {});
   }
+
+  void _openFileExplorer() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+
+    if (result != null) {
+      setState(() {
+        _filePath = result.files.single.path as String;
+      });
+    }
+  }
 }
 
 // Exam page widget
-class ExamPage extends StatelessWidget {
+class ExamPage extends StatefulWidget {
   final Exam exam;
-  final Function onDelete;
+  final Function(Exam exam) onDelete;
 
-  ExamPage(this.exam, this.onDelete);
+  ExamPage(this.exam, this.onDelete, {Key? key}) : super(key: key);
+
+  @override
+  State<ExamPage> createState() => _ExamPage();
+}
+
+class _ExamPage extends State<ExamPage> {
+  int _totalPages = 0;
+  int _currentPage = 0;
+  bool _isLoading = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(exam.title),
+        title: Text(widget.exam.title),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () {
+              widget.onDelete(widget.exam);
+              Navigator.pop(context);
+            },
+          ),
+        ],
       ),
       body: Center(
-        child: Text(exam.date.toString()),
+        child: PDFView(
+          filePath: widget.exam.pdfPath,
+        ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          onDelete(exam);
-          Navigator.pop(context);
-          //_deleteExamPage(context);
-        },
-        label: Text("Delete"),
-        icon: Icon(Icons.delete),
-      ),
+      //floatingActionButton: FloatingActionButton.extended(
+      //onPressed: () {
+      //onDelete(exam);
+      //Navigator.pop(context);
+      //_deleteExamPage(context);
+      //},
+      // label: Text("Delete"),
+      // icon: Icon(Icons.delete),
+      //),
     );
   }
 
