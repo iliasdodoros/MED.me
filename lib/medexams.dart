@@ -73,8 +73,15 @@ class _MedicalExams extends State<MedicalExams> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Exams'),
+        elevation: 0,
+        iconTheme: IconThemeData(color: Theme.of(context).primaryColorLight),
         centerTitle: true,
+        backgroundColor: Theme.of(context).canvasColor,
+        title: Text(
+          "My Exams",
+          style: TextStyle(
+              fontSize: 28, color: Theme.of(context).primaryColorLight),
+        ),
       ),
       body: ListView.builder(
         itemCount: _exams.length,
@@ -87,6 +94,7 @@ class _MedicalExams extends State<MedicalExams> {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Theme.of(context).primaryColorLight,
         onPressed: () => showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -102,6 +110,11 @@ class _MedicalExams extends State<MedicalExams> {
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColorLight,
+                    minimumSize: const Size(20, 4),
+                    textStyle: const TextStyle(fontSize: 28),
+                  ),
                   onPressed: () async {
                     final DateTime? date = await showDatePicker(
                       context: context,
@@ -248,8 +261,15 @@ class _ExamPage extends State<ExamPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.exam.title),
+        elevation: 0,
+        iconTheme: IconThemeData(color: Theme.of(context).primaryColorLight),
         centerTitle: true,
+        backgroundColor: Theme.of(context).canvasColor,
+        title: Text(
+          widget.exam.title,
+          style: TextStyle(
+              fontSize: 28, color: Theme.of(context).primaryColorLight),
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.delete),

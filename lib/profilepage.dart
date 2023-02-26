@@ -11,78 +11,145 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          SizedBox(height: 16.0),
-          SizedBox(
-            width: 250,
-            height: 90,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Info()),
-                );
-              },
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(Size(20, 4)),
-                textStyle: MaterialStateProperty.all(TextStyle(fontSize: 28)),
-              ),
-              child: Text('INFO'),
+          const Expanded(
+            child: SizedBox(
+              height: 350,
+              width: 100,
             ),
           ),
-          SizedBox(height: 16.0),
-          SizedBox(
-            width: 250,
-            height: 90,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MyPrescriptions()),
-                );
-              },
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(Size(20, 4)),
-                textStyle: MaterialStateProperty.all(TextStyle(fontSize: 28)),
+          Expanded(
+            child: Row(children: <Widget>[
+              VerticalDivider(
+                thickness: 10,
+                width: 10,
+                color: Theme.of(context).canvasColor,
               ),
-              child: Text('PRESCRIPTIONS'),
-            ),
-          ),
-          SizedBox(height: 16.0),
-          SizedBox(
-            width: 250,
-            height: 90,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MedicalExams()),
-                );
-              },
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(Size(20, 4)),
-                textStyle: MaterialStateProperty.all(TextStyle(fontSize: 28)),
+              Expanded(
+                child: SizedBox(
+                    width: 250,
+                    height: 90,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                        backgroundColor: Theme.of(context).primaryColorLight,
+                        minimumSize: const Size(20, 4),
+                        textStyle: const TextStyle(fontSize: 28),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Info()),
+                        );
+                      },
+                      child: const Text('INFO'),
+                    )),
               ),
-              child: Text('MEDICAL EXAMS'),
-            ),
-          ),
-          SizedBox(height: 16.0),
-          SizedBox(
-            width: 250,
-            height: 90,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Diary()),
-                );
-              },
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(Size(20, 8)),
-                textStyle: MaterialStateProperty.all(TextStyle(fontSize: 28)),
+              VerticalDivider(
+                thickness: 10,
+                width: 10,
+                color: Theme.of(context).canvasColor,
               ),
-              child: Text('DIARY'),
-            ),
+              Expanded(
+                  child: SizedBox(
+                width: 250,
+                height: 90,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MyPrescriptions()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    backgroundColor: Theme.of(context).primaryColorLight,
+                    minimumSize: const Size(20, 4),
+                    textStyle: const TextStyle(fontSize: 26),
+                  ),
+                  child: const Text('PRESCRIPTIONS'),
+                ),
+              )),
+              VerticalDivider(
+                thickness: 10,
+                width: 10,
+                color: Theme.of(context).canvasColor,
+              ),
+            ]),
           ),
+          // Divider(
+          //   thickness: 10,
+          //   height: 10,
+          //   color: Theme.of(context).canvasColor,
+          // ),
+          Expanded(
+              child: Row(children: <Widget>[
+            VerticalDivider(
+              thickness: 10,
+              width: 10,
+              color: Theme.of(context).canvasColor,
+            ),
+            Expanded(
+              child: SizedBox(
+                  width: 250,
+                  height: 90,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MedicalExams()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      backgroundColor: Theme.of(context).primaryColorLight,
+                      minimumSize: const Size(20, 4),
+                      textStyle: const TextStyle(fontSize: 28),
+                    ),
+                    child: const Text(
+                      'MEDICAL EXAMS',
+                      textAlign: TextAlign.center,
+                    ),
+                  )),
+            ),
+            VerticalDivider(
+              thickness: 10,
+              width: 10,
+              color: Theme.of(context).canvasColor,
+            ),
+            Expanded(
+              child: SizedBox(
+                width: 250,
+                height: 90,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Diary()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    backgroundColor: Theme.of(context).primaryColorLight,
+                    minimumSize: const Size(20, 4),
+                    textStyle: const TextStyle(fontSize: 28),
+                  ),
+                  child: const Text('DIARY'),
+                ),
+              ),
+            ),
+            VerticalDivider(
+              thickness: 10,
+              width: 10,
+              color: Theme.of(context).canvasColor,
+            ),
+          ]))
         ],
       ),
     );
@@ -96,9 +163,17 @@ class Info extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Info'),
+        elevation: 0,
+        iconTheme: IconThemeData(color: Theme.of(context).primaryColorLight),
+        centerTitle: true,
+        backgroundColor: Theme.of(context).canvasColor,
+        title: Text(
+          "Info",
+          style: TextStyle(
+              fontSize: 28, color: Theme.of(context).primaryColorLight),
+        ),
       ),
-      body: Center(
+      body: const Center(
         child: Text('This is the info page'),
       ),
     );
