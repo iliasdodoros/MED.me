@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medme/infopage.dart';
+import 'package:medme/welcomepage.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ProfilePage extends StatelessWidget {

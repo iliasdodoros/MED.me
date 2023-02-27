@@ -18,9 +18,9 @@ class WelcomePage extends StatelessWidget {
               width: 300,
               height: 300,
             ),
-            SizedBox(height: 20),
+             const SizedBox(height: 20),
             // Add your welcome message here
-            Text(
+            const Text(
               'All information regarding your health in one place',
               style: TextStyle(
                 fontSize: 18,
