@@ -24,7 +24,9 @@ class _ProfilePage extends State<ProfilePage> {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       final imageFile = File(pickedFile.path);
-      // TODO: Store image file and update circle display
+      setState(() {
+        _imageFile = imageFile;
+      });
     }
   }
 
