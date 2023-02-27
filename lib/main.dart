@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'profilepage.dart';
 import 'hospitalpage.dart';
 import 'farmacypage.dart';
+import 'welcomepage.dart';
 
 void main() {
   runApp(const MedMe());
