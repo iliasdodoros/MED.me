@@ -119,6 +119,10 @@ class _Diary extends State<Diary> {
               title: Text(
                 event.title,
               ),
+              trailing: IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: () => _deleteEvent(event),
+              ),
             ),
           ),
         ],
@@ -210,5 +214,38 @@ class _Diary extends State<Diary> {
       _saveEvents(); // Call _saveEvents() every time events data is updated
       setState(() {});
     }
+  }
+
+  void _deleteEvent(Event event) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Delete Event"),
+        content: Text("Are you sure you want to delete this event?"),
+        actions: [
+          TextButton(
+            child: Text("Cancel"),
+            onPressed: () => Navigator.pop(context),
+          ),
+          TextButton(
+            child: Text("Delete"),
+            onPressed: () {
+              //Navigator.pop(context);
+              setState(() {
+                selectedEvents[_selectedDay]?.remove(event);
+              });
+              _saveEvents();
+
+              Navigator.pop(context);
+              //setState(() {});
+            },
+          ),
+        ],
+      ),
+    );
+    //setState(() {
+    //selectedEvents[_selectedDay]?.remove(event);
+    //});
+    //_saveEvents();
   }
 }
