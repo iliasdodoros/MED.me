@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'infopage.dart';
 
-
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
 
@@ -18,9 +17,9 @@ class WelcomePage extends StatelessWidget {
               width: 300,
               height: 300,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Add your welcome message here
-            Text(
+            const Text(
               'All information regarding your health in one place',
               style: TextStyle(
                 fontSize: 18,
@@ -28,17 +27,22 @@ class WelcomePage extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             // Add a button to create profile
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).primaryColorLight,
+                minimumSize: const Size(20, 4),
+                textStyle: const TextStyle(fontSize: 28),
+              ),
               onPressed: () {
                 // Navigate to info page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => InfoPage()),
+                  MaterialPageRoute(builder: (context) => const InfoPage()),
                 );
               },
-              child: Text('Create your profile'),
+              child: const Text('Create your profile'),
             ),
           ],
         ),
