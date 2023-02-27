@@ -3,11 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:medme/diary.dart';
 import 'package:medme/medexams.dart';
 import 'package:medme/prescriptions.dart';
-
 import 'package:medme/infopage.dart';
 
-class ProfilePage extends StatelessWidget {
+import 'package:table_calendar/table_calendar.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePage();
+}
+
+class _ProfilePage extends State<ProfilePage> {
+  File _imageFile = File('');
+
+  Future<void> _handleCircleTap() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      final imageFile = File(pickedFile.path);
+      // TODO: Store image file and update circle display
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +37,25 @@ class ProfilePage extends StatelessWidget {
             child: SizedBox(
               height: 350,
               width: 100,
+            ),
+          ),
+          GestureDetector(
+            onTap: _handleCircleTap,
+            child: Container(
+              height: 120,
+              width: 120,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color.fromARGB(255, 119, 234, 244),
+              ),
+              child: ClipOval(
+                child: _imageFile != null
+                    ? Image.file(
+                        _imageFile,
+                        fit: BoxFit.cover,
+                      )
+                    : Container(),
+              ),
             ),
           ),
           Expanded(
