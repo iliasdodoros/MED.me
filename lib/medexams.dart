@@ -98,17 +98,17 @@ class _MedicalExams extends State<MedicalExams> {
         onPressed: () => showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text("Add New Exam"),
+            title: const Text("Add New Exam"),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
                   controller: _titleController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Enter Exam type',
                   ),
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).primaryColorLight,
@@ -131,28 +131,28 @@ class _MedicalExams extends State<MedicalExams> {
                   },
                   child: Text(_selectedDateText),
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
                     _openFileExplorer();
                   },
-                  child: Text('Add PDF file'),
+                  child: const Text('Add PDF file'),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text(_filePath),
               ],
             ),
             actions: [
               TextButton(
-                child: Text("Cancel"),
+                child: const Text("Cancel"),
                 onPressed: () => Navigator.pop(context),
               ),
               TextButton(
-                child: Text("Save"),
+                child: const Text("Save"),
                 onPressed: () {
                   if (_titleController.text.isEmpty) {
                   } else {
-                    if (_exams != null) {
+                    if (_exams.isNotEmpty) {
                       _addExam(_titleController.text,
                           _selectedDate ?? DateTime.now(), _filePath);
                     } else {
@@ -170,8 +170,8 @@ class _MedicalExams extends State<MedicalExams> {
             ],
           ),
         ),
-        label: Text("Add New Exam"),
-        icon: Icon(Icons.add),
+        label: const Text("Add New Exam"),
+        icon: const Icon(Icons.add),
       ),
     );
   }
@@ -246,17 +246,13 @@ class ExamPage extends StatefulWidget {
   final Exam exam;
   final Function(Exam exam) onDelete;
 
-  ExamPage(this.exam, this.onDelete, {Key? key}) : super(key: key);
+  const ExamPage(this.exam, this.onDelete, {Key? key}) : super(key: key);
 
   @override
   State<ExamPage> createState() => _ExamPage();
 }
 
 class _ExamPage extends State<ExamPage> {
-  int _totalPages = 0;
-  int _currentPage = 0;
-  bool _isLoading = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -272,7 +268,7 @@ class _ExamPage extends State<ExamPage> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.delete),
+            icon: const Icon(Icons.delete),
             onPressed: () {
               widget.onDelete(widget.exam);
               Navigator.pop(context);
