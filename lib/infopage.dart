@@ -6,7 +6,7 @@ class InfoPage extends StatefulWidget {
   const InfoPage({Key? key}) : super(key: key);
 
   @override
-  _InfoPageState createState() => _InfoPageState();
+  State<InfoPage> createState() => _InfoPageState();
 }
 
 class _InfoPageState extends State<InfoPage> {
@@ -54,36 +54,53 @@ class _InfoPageState extends State<InfoPage> {
     bloodTypeController = TextEditingController(text: bloodType);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Info Page'),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const SizedBox(height: 10),
-          _buildTextBanner('Name', nameController),
-          _buildTextBanner('Age', ageController),
-          _buildTextBanner('Sex', sexController),
-          _buildTextBanner('Height', heightController),
-          _buildTextBanner('Weight', weightController),
-          _buildTextBanner('Blood Type', bloodTypeController),
-          const SizedBox(height: 20),
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                _saveUserInfo();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Mainscreen()),
-                );
-              },
-              child: const Text('Save'),
-            ),
-          )
-        ],
-      ),
-    );
+        appBar: AppBar(
+          elevation: 0,
+          iconTheme: IconThemeData(color: Theme.of(context).primaryColorLight),
+          centerTitle: true,
+          backgroundColor: Theme.of(context).canvasColor,
+          title: Text(
+            "Infos",
+            style: TextStyle(
+                fontSize: 28, color: Theme.of(context).primaryColorLight),
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const SizedBox(height: 10),
+              _buildTextBanner('Name', nameController),
+              _buildTextBanner('Age', ageController),
+              _buildTextBanner('Sex', sexController),
+              _buildTextBanner('Height', heightController),
+              _buildTextBanner('Weight', weightController),
+              _buildTextBanner('Blood Type', bloodTypeController),
+              const SizedBox(height: 20),
+              Center(
+                  child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColorLight,
+                    minimumSize: const Size(20, 4),
+                    textStyle: const TextStyle(fontSize: 28),
+                  ),
+                  onPressed: () {
+                    _saveUserInfo();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Mainscreen()),
+                    );
+                  },
+                  child: const Text('Save'),
+                ),
+              ))
+            ],
+          ),
+        ));
   }
 
   Widget _buildTextBanner(String title, TextEditingController controller) {
@@ -92,12 +109,15 @@ class _InfoPageState extends State<InfoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: Theme.of(context).textTheme.caption),
+          Text(title, style: Theme.of(context).textTheme.bodySmall),
           const SizedBox(height: 5),
           TextFormField(
-            decoration:const  InputDecoration(
-              border: OutlineInputBorder(),
-              contentPadding:  EdgeInsets.all(10),
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Theme.of(context).primaryColorLight)),
+              contentPadding: const EdgeInsets.all(10),
             ),
             controller: controller,
           ),
@@ -119,14 +139,12 @@ class _InfoPageState extends State<InfoPage> {
   Future<void> _loadUserInfo() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      name= prefs.getString('name') ?? '';
-     age = prefs.getString('age') ?? '';
+      name = prefs.getString('name') ?? '';
+      age = prefs.getString('age') ?? '';
       sex = prefs.getString('sex') ?? '';
       height = prefs.getString('height') ?? '';
       weight = prefs.getString('weight') ?? '';
       bloodType = prefs.getString('bloodType') ?? '';
     });
-  } 
   }
-
-
+}

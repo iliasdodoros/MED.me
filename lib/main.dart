@@ -1,8 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'profilepage.dart';
 import 'hospitalpage.dart';
 import 'farmacypage.dart';
 import 'welcomepage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:after_layout/after_layout.dart';
 
 void main() {
   runApp(const MedMe());
@@ -24,7 +28,42 @@ class MedMe extends StatelessWidget {
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
             height: 60,
           )),
-      home: const Mainscreen(),
+      home: const Splash(),
+    );
+  }
+}
+
+class Splash extends StatefulWidget {
+  const Splash({super.key});
+
+  @override
+  SplashState createState() => SplashState();
+}
+
+class SplashState extends State<Splash> with AfterLayoutMixin<Splash> {
+  Future checkFirstSeen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool seen = (prefs.getBool('seen') ?? false);
+
+    if (seen) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const Mainscreen()));
+    } else {
+      await prefs.setBool('seen', true);
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const WelcomePage()));
+    }
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) => checkFirstSeen();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: Text('Loading...'),
+      ),
     );
   }
 }

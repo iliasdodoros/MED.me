@@ -34,7 +34,7 @@ class _ProfilePage extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: [
+        children: <Widget>[
           const Expanded(
             child: SizedBox(
               height: 350,

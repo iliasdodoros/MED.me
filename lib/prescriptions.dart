@@ -77,11 +77,11 @@ class _MyPrescriptions extends State<MyPrescriptions> {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        child: Text('Close'),
+                        child: const Text('Close'),
                       ),
                       TextButton(
                         onPressed: () => _deletePrescription(pres),
-                        child: Text('Delete'),
+                        child: const Text('Delete'),
                       ),
                     ],
                   );
@@ -100,41 +100,41 @@ class _MyPrescriptions extends State<MyPrescriptions> {
         onPressed: () => showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text("Add New Prescription"),
+            title: const Text("Add New Prescription"),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
                   controller: _titleController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Enter title',
                   ),
                 ),
                 TextField(
                   controller: _descriptionController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Enter description',
                   ),
                 ),
                 DropdownButton<int>(
                   value: _selectedFrequency,
-                  hint: Text("Select Frequency"),
-                  items: [
+                  hint: const Text("Select Frequency"),
+                  items: const [
                     DropdownMenuItem(
-                      child: Text("1 time per day"),
                       value: 24,
+                      child: Text("1 time per day"),
                     ),
                     DropdownMenuItem(
-                      child: Text("2 times per day"),
                       value: 12,
+                      child: Text("2 times per day"),
                     ),
                     DropdownMenuItem(
-                      child: Text("3 times per day"),
                       value: 8,
+                      child: Text("3 times per day"),
                     ),
                     DropdownMenuItem(
-                      child: Text("4 time per day"),
                       value: 6,
+                      child: Text("4 time per day"),
                     ),
                   ],
                   onChanged: (value) {
@@ -147,15 +147,15 @@ class _MyPrescriptions extends State<MyPrescriptions> {
             ),
             actions: [
               TextButton(
-                child: Text("Cancel"),
+                child: const Text("Cancel"),
                 onPressed: () => Navigator.pop(context),
               ),
               TextButton(
-                child: Text("Save"),
+                child: const Text("Save"),
                 onPressed: () {
                   if (_titleController.text.isEmpty) {
                   } else {
-                    if (_prescriptions != null) {
+                    if (_prescriptions.isNotEmpty) {
                       _addPrescription(_titleController.text,
                           _descriptionController.text, _selectedFrequency);
                     } else {
@@ -173,8 +173,8 @@ class _MyPrescriptions extends State<MyPrescriptions> {
             ],
           ),
         ),
-        label: Text("Add New Prescription"),
-        icon: Icon(Icons.add),
+        label: const Text("Add New Prescription"),
+        icon: const Icon(Icons.add),
       ),
     );
   }
@@ -192,7 +192,7 @@ class _MyPrescriptions extends State<MyPrescriptions> {
   }
 
   void _addPrescription(String title, String description, int frequency) {
-    if (title.isNotEmpty && frequency != null) {
+    if (title.isNotEmpty) {
       _prescriptions.add(Prescription(title, description, frequency));
       _prefs.setStringList(
           'prescriptions',
@@ -217,15 +217,16 @@ class _MyPrescriptions extends State<MyPrescriptions> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("Delete Prescription"),
-        content: Text("Are you sure you want to delete this prescription?"),
+        title: const Text("Delete Prescription"),
+        content:
+            const Text("Are you sure you want to delete this prescription?"),
         actions: [
           TextButton(
-            child: Text("Cancel"),
+            child: const Text("Cancel"),
             onPressed: () => Navigator.pop(context),
           ),
           TextButton(
-            child: Text("Delete"),
+            child: const Text("Delete"),
             onPressed: () {
               _prescriptions.remove(prescription);
               _prefs.setStringList(
