@@ -17,8 +17,10 @@ class MedMe extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
           primarySwatch: Colors.red,
+          canvasColor: Colors.white,
           // hoverColor: const Color.fromARGB(0, 255, 255, 255),
           navigationBarTheme: const NavigationBarThemeData(
+            // indicatorColor: Color.fromARGB(255, 255, 148, 148),
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
             height: 60,
           )),

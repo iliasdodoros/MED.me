@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+
+import 'package:medme/diary.dart';
+import 'package:medme/medexams.dart';
+import 'package:medme/prescriptions.dart';
+
 import 'package:medme/infopage.dart';
 import 'package:table_calendar/table_calendar.dart';
+
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -10,115 +16,155 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          const SizedBox(height: 16.0),
-          SizedBox(
-            width: 250,
-            height: 90,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                 MaterialPageRoute(builder: (context) => const InfoPage()),
-                );
-              },
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(const Size(20, 4)),
-                textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 28)),
-              ),
-              child: const Text('INFO'),
+
+          const Expanded(
+            child: SizedBox(
+              height: 350,
+              width: 100,
             ),
           ),
-         const SizedBox(height: 16.0),
-          SizedBox(
-            width: 250,
-            height: 90,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Prescriptions()),
-                );
-              },
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(Size(20, 4)),
-                textStyle: MaterialStateProperty.all(TextStyle(fontSize: 28)),
+          Expanded(
+            child: Row(children: <Widget>[
+              VerticalDivider(
+                thickness: 10,
+                width: 10,
+                color: Theme.of(context).canvasColor,
+
               ),
-              child: Text('PRESCRIPTIONS'),
-            ),
-          ),
-          SizedBox(height: 16.0),
-          SizedBox(
-            width: 250,
-            height: 90,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MedicalExams()),
-                );
-              },
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(Size(20, 4)),
-                textStyle: MaterialStateProperty.all(TextStyle(fontSize: 28)),
+              Expanded(
+                child: SizedBox(
+                    width: 250,
+                    height: 90,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                        backgroundColor: Theme.of(context).primaryColorLight,
+                        minimumSize: const Size(20, 4),
+                        textStyle: const TextStyle(fontSize: 28),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Info()),
+                        );
+                      },
+                      child: const Text('INFO'),
+                    )),
               ),
-              child: Text('MEDICAL EXAMS'),
-            ),
-          ),
-          SizedBox(height: 16.0),
-          SizedBox(
-            width: 250,
-            height: 90,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Diary()),
-                );
-              },
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(Size(20, 8)),
-                textStyle: MaterialStateProperty.all(TextStyle(fontSize: 28)),
+              VerticalDivider(
+                thickness: 10,
+                width: 10,
+                color: Theme.of(context).canvasColor,
               ),
-              child: Text('DIARY'),
-            ),
+              Expanded(
+                  child: SizedBox(
+                width: 250,
+                height: 90,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MyPrescriptions()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    backgroundColor: Theme.of(context).primaryColorLight,
+                    minimumSize: const Size(20, 4),
+                    textStyle: const TextStyle(fontSize: 26),
+                  ),
+                  child: const Text('PRESCRIPTIONS'),
+                ),
+              )),
+              VerticalDivider(
+                thickness: 10,
+                width: 10,
+                color: Theme.of(context).canvasColor,
+              ),
+            ]),
           ),
+          // Divider(
+          //   thickness: 10,
+          //   height: 10,
+          //   color: Theme.of(context).canvasColor,
+          // ),
+          Expanded(
+              child: Row(children: <Widget>[
+            VerticalDivider(
+              thickness: 10,
+              width: 10,
+              color: Theme.of(context).canvasColor,
+            ),
+            Expanded(
+              child: SizedBox(
+                  width: 250,
+                  height: 90,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MedicalExams()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      backgroundColor: Theme.of(context).primaryColorLight,
+                      minimumSize: const Size(20, 4),
+                      textStyle: const TextStyle(fontSize: 28),
+                    ),
+                    child: const Text(
+                      'MEDICAL EXAMS',
+                      textAlign: TextAlign.center,
+                    ),
+                  )),
+            ),
+            VerticalDivider(
+              thickness: 10,
+              width: 10,
+              color: Theme.of(context).canvasColor,
+            ),
+            Expanded(
+              child: SizedBox(
+                width: 250,
+                height: 90,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Diary()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    backgroundColor: Theme.of(context).primaryColorLight,
+                    minimumSize: const Size(20, 4),
+                    textStyle: const TextStyle(fontSize: 28),
+                  ),
+                  child: const Text('DIARY'),
+                ),
+              ),
+            ),
+            VerticalDivider(
+              thickness: 10,
+              width: 10,
+              color: Theme.of(context).canvasColor,
+            ),
+          ]))
         ],
       ),
     );
   }
 }
 
-// class Info extends StatelessWidget {
-//   const Info({Key? key}) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Info'),
-//       ),
-//       body: Center(
-//         child: Text('This is the info page'),
-//       ),
-//     );
-//   }
-// }
 
-class Prescriptions extends StatelessWidget {
-  const Prescriptions({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Prescriptions'),
-      ),
-      body: Center(
-        child: Text('This is the Prescriptions page'),
-      ),
-    );
-  }
-}
 
 class MedicalExams extends StatelessWidget {
   const MedicalExams({Key? key}) : super(key: key);

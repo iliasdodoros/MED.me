@@ -1,143 +1,4 @@
-import 'dart:convert';
-import 'package:intl/intl.dart';
-import 'package:flutter/material.dart';
-import 'package:maps_launcher/maps_launcher.dart';
-
-class HospitalPage extends StatefulWidget {
-  const HospitalPage({super.key});
-
-  @override
-  State<HospitalPage> createState() => _HospitalPage();
-}
-
-class _HospitalPage extends State<HospitalPage> {
-  int currentPageIndex = 1;
-  List<String> clinics = [
-    "Παθολογική",
-    "Καρδιολογική",
-    "Χειρουργική",
-    "Αιματολογική",
-    "Γαστρεντερολογική",
-    "Δερματολογική",
-    "Ενδοκρινολογική",
-    "Νευρολογική",
-    "Ογκολογική",
-    "Οδοντιατρική",
-    "Ορθοπαιδική"
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  void _onTap(int index) {
-    setState(() {
-      currentPageIndex = index;
-    });
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => Hospitals(
-                currentPageIndex: currentPageIndex,
-              )),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          iconTheme: IconThemeData(color: Theme.of(context).primaryColorLight),
-          centerTitle: true,
-          backgroundColor: Theme.of(context).canvasColor,
-          title: Text(
-            "Clinics",
-            style: TextStyle(
-                fontSize: 28, color: Theme.of(context).primaryColorLight),
-          ),
-        ),
-        body: ListView.separated(
-          padding: const EdgeInsets.all(10),
-          itemCount: clinics.length,
-          itemBuilder: (BuildContext context, int counter) {
-            return ListTile(
-              tileColor: Theme.of(context).canvasColor,
-              onTap: () => {_onTap(counter)},
-              title: Text(clinics[counter]),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) => const Divider(
-            thickness: 0,
-          ),
-        ));
-  }
-}
-
-DateTime date = DateTime.now();
-
-class Hospitals extends StatelessWidget {
-  Hospitals({super.key, required this.currentPageIndex});
-
-  final hospitallist = jsonDecode(jsondata);
-  final int currentPageIndex;
-
-  final String day = DateFormat('EEEE').format(date);
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          iconTheme: IconThemeData(color: Theme.of(context).primaryColorLight),
-          centerTitle: true,
-          backgroundColor: Theme.of(context).canvasColor,
-          title: Text(
-            "Hospitals",
-            style: TextStyle(
-                fontSize: 28, color: Theme.of(context).primaryColorLight),
-          ),
-        ),
-        body: ListView.separated(
-          padding: const EdgeInsets.all(10),
-          itemCount: hospitallist[day][currentPageIndex]
-                  [clinics[currentPageIndex]]
-              .length,
-          itemBuilder: (BuildContext context, int counter) {
-            return ListTile(
-              tileColor: Theme.of(context).primaryColorLight,
-              minVerticalPadding: 25,
-              onTap: () => {
-                MapsLauncher.launchQuery(hospitallist[day][currentPageIndex]
-                    [clinics[currentPageIndex]][counter])
-              },
-              title: Text(hospitallist[day][currentPageIndex]
-                  [clinics[currentPageIndex]][counter]),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) => const Divider(
-            thickness: 0,
-            height: 15,
-            color: Colors.transparent,
-          ),
-        ));
-  }
-}
-
-List<String> clinics = [
-  "Παθολογική",
-  "Καρδιολογική",
-  "Χειρουργική",
-  "Αιματολογική",
-  "Γαστρεντερολογική",
-  "Δερματολογική",
-  "Ενδοκρινολογική",
-  "Νευρολογική",
-  "Ογκολογική",
-  "Οδοντιατρική",
-  "Ορθοπαιδική"
-];
-const jsondata = '''{
+{
   "Monday": [
     {
       "Παθολογική": [
@@ -224,89 +85,18 @@ const jsondata = '''{
     }
   ],
   "Tuesday": [
-     {
-      "Παθολογική": [
-        " Γενικό Ογκολογικό Νοσοκομείο Κηφισιάς",
-        "Αλεξάνδρα - Περιφερειακό Γενικό Νοσοκομείο Αθηνών",
-        "Ελπίς - Γενικό Νοσοκομείο Αθηνών",
-        "Ερυθρός Σταυρός (Μπενάκειο)",
-        "Ιπποκράτειο - Περιφερειακό Γενικό Νοσοκομείο Αθηνών",
-        "Σισμανόγλειο - Γενικό Νοσοκομείο Αττικής"
-      ]
-    },
-    {
-      "Καρδιολογική": [
-        "Γενικό Ογκολογικό Νοσοκομείο Κηφισιάς",
-        "Αλεξάνδρα - Περιφερειακό Γενικό Νοσοκομείο Αθηνών",
-        "Ερυθρός Σταυρός (Μπενάκειο)",
-        "Σωτηρία - Γενικό Νοσοκομείο Αθηνών"
-      ]
-    },
-    {
-      "Χειρουργική": [
-        " Γενικό Ογκολογικό Νοσοκομείο Κηφισιάς",
-        "Αλεξάνδρα - Περιφερειακό Γενικό Νοσοκομείο Αθηνών",
-        "Ελπίς - Γενικό Νοσοκομείο Αθηνών",
-        "Ερυθρός Σταυρός (Μπενάκειο)"
-      ]
-    },
-    {
-      "Αιματολογική": [
-        "Ελπίς - Γενικό Νοσοκομείο Αθηνών",
-        "Ερυθρός Σταυρός (Μπενάκειο)",
-        "Ιπποκράτειο - Περιφερειακό Γενικό Νοσοκομείο Αθηνών",
-        "Σισμανόγλειο - Γενικό Νοσοκομείο Αττικής"
-      ]
-    },
-    {
-      "Γαστρεντερολογική": [
-        "Ελπίς - Γενικό Νοσοκομείο Αθηνών",
-        "Ερυθρός Σταυρός (Μπενάκειο)",
-        "Αλεξάνδρα - Περιφερειακό Γενικό Νοσοκομείο Αθηνών"
-      ]
-    },
-    {
-      "Δερματολογική": [
-        " Γενικό Ογκολογικό Νοσοκομείο Κηφισιάς",
-        "Αλεξάνδρα - Περιφερειακό Γενικό Νοσοκομείο Αθηνών",
-        "Ελπίς - Γενικό Νοσοκομείο Αθηνών",
-        "Ερυθρός Σταυρός (Μπενάκειο)"
-      ]
-    },
-    {
-      "Ενδοκρινολογική": [
-        " Γενικό Ογκολογικό Νοσοκομείο Κηφισιάς",
-        "Αλεξάνδρα - Περιφερειακό Γενικό Νοσοκομείο Αθηνών",
-        "Ελπίς - Γενικό Νοσοκομείο Αθηνών",
-        "Ερυθρός Σταυρός (Μπενάκειο)",
-        "Ιπποκράτειο - Περιφερειακό Γενικό Νοσοκομείο Αθηνών",
-        "Σισμανόγλειο - Γενικό Νοσοκομείο Αττικής"
-      ]
-    },
-    {
-      "Νευρολογική": [
-        "Ελπίς - Γενικό Νοσοκομείο Αθηνών",
-        "Ερυθρός Σταυρός (Μπενάκειο)",
-        "Ιπποκράτειο - Περιφερειακό Γενικό Νοσοκομείο Αθηνών",
-        "Σισμανόγλειο - Γενικό Νοσοκομείο Αττικής"
-      ]
-    },
-    {
-      "Ογκολογική": [
-        " Γενικό Ογκολογικό Νοσοκομείο Κηφισιάς",
-        "Αλεξάνδρα - Περιφερειακό Γενικό Νοσοκομείο Αθηνών",
-        "Ελπίς - Γενικό Νοσοκομείο Αθηνών",
-        "Ερυθρός Σταυρός (Μπενάκειο)"
-      ]
-    },
-    {
-      "Ορθοπαιδική": [
-        "Ελπίς - Γενικό Νοσοκομείο Αθηνών",
-        "Ερυθρός Σταυρός (Μπενάκειο)",
-        "Ιπποκράτειο - Περιφερειακό Γενικό Νοσοκομείο Αθηνών",
-        "Σισμανόγλειο - Γενικό Νοσοκομείο Αττικής"
-      ]
-    }
+    { "Παθολογική": ["Γενικό Κρατικό", "Στρατιωτικό Νοσοκομείο"] },
+    { "Καρδιολογική": ["Γενικό Κρατικό", "Στρατιωτικό Νοσοκομείο"] },
+    { "Χειρουργική": ["Γενικό Κρατικό", "Στρατιωτικό Νοσοκομείο"] },
+    { "Αιματολογική": ["Γενικό Κρατικό", "Στρατιωτικό Νοσοκομείο"] },
+
+    { "Γαστρεντερολογική": ["Γενικό Κρατικό", "Στρατιωτικό Νοσοκομείο"] },
+    { "Δερματολογική": ["Γενικό Κρατικό", "Στρατιωτικό Νοσοκομείο"] },
+    { "Ενδοκρινολογική": ["Γενικό Κρατικό", "Στρατιωτικό Νοσοκομείο"] },
+    { "Νευρολογική": ["Γενικό Κρατικό", "Στρατιωτικό Νοσοκομείο"] },
+    { "Ογκολογική": ["Γενικό Κρατικό", "Στρατιωτικό Νοσοκομείο"] },
+    { "Οδοντιατρική": ["Γενικό Κρατικό", "Στρατιωτικό Νοσοκομείο"] },
+    { "Ορθοπαιδική": ["Γενικό Κρατικό", "Στρατιωτικό Νοσοκομείο"] }
   ],
   "Wednesday": [
     {
@@ -734,4 +524,3 @@ const jsondata = '''{
     }
   ]
 }
-''';
