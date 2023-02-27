@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medme/infopage.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -9,7 +10,7 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           SizedBox(
             width: 250,
             height: 90,
@@ -17,17 +18,17 @@ class ProfilePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Info()),
+                 MaterialPageRoute(builder: (context) => const InfoPage()),
                 );
               },
               style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(Size(20, 4)),
-                textStyle: MaterialStateProperty.all(TextStyle(fontSize: 28)),
+                minimumSize: MaterialStateProperty.all(const Size(20, 4)),
+                textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 28)),
               ),
-              child: Text('INFO'),
+              child: const Text('INFO'),
             ),
           ),
-          SizedBox(height: 16.0),
+         const SizedBox(height: 16.0),
           SizedBox(
             width: 250,
             height: 90,
@@ -87,21 +88,21 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-class Info extends StatelessWidget {
-  const Info({Key? key}) : super(key: key);
+// class Info extends StatelessWidget {
+//   const Info({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Info'),
-      ),
-      body: Center(
-        child: Text('This is the info page'),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Info'),
+//       ),
+//       body: Center(
+//         child: Text('This is the info page'),
+//       ),
+//     );
+//   }
+// }
 
 class Prescriptions extends StatelessWidget {
   const Prescriptions({Key? key}) : super(key: key);
